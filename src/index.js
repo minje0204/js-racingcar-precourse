@@ -34,12 +34,26 @@ const handleCarNames = input => {
   const carNames = input.value.split(',');
 
   if (carNames.length <= 1 || carNames.length != new Set(carNames).size) {
-    alert('잘못된 형식');
-    input.value = '';
-    return input.focus();
+    return requestInputAgain(input);
+  }
+
+  for (let name of carNames) {
+    if (!validateCarName(name)) {
+      return requestInputAgain(input);
+    }
   }
 
   generateCars(); //todo
+};
+
+const validateCarName = name => {
+  return name.length > 5 ? false : true;
+};
+
+const requestInputAgain = input => {
+  alert('잘못된 형식');
+  input.value = '';
+  input.focus();
 };
 
 new RacingCarGame();

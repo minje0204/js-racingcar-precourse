@@ -85,12 +85,8 @@ const handleRacingCount = (cars, input) => {
     return requestInputAgain(input);
   }
 
-  const result = racingTurn(input.value, cars);
+  const result = repeatTurns(input.value, cars);
   showResult(result);
-};
-
-const racingTurn = (count, cars) => {
-  return count;
 };
 
 const showResult = result => {
@@ -102,4 +98,19 @@ const showResult = result => {
   resultContent.appendChild(result);
 };
 
+const repeatTurns = (racingCount, cars) => {
+  for (let i = 0; i < racingCount; i++) {
+    playOneTurn(cars);
+  }
+  return cars;
+};
+
+const playOneTurn = cars => {
+  cars.forEach(v => {
+    const randomNumber = Math.floor(Math.random() * 10);
+    if (randomNumber >= 4) {
+      v.path += '-';
+    }
+  });
+};
 new RacingCarGame();

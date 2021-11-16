@@ -22,7 +22,9 @@ export default function RacingCarGame() {
 
   initDom(racingCountContainer, resultContainer);
 
-  carNamesSubmit.addEventListener('click', () => handleCarNames(carNamesInput));
+  carNamesSubmit.addEventListener('click', () =>
+    handleCarNames(carNamesInput, racingCountContainer),
+  );
 }
 
 const initDom = (racingCountContainer, resultContainer) => {
@@ -43,7 +45,7 @@ const handleCarNames = input => {
     }
   }
 
-  generateCars(); //todo
+  generateCars();
 };
 
 const validateCarName = name => {
@@ -54,6 +56,31 @@ const requestInputAgain = input => {
   alert('잘못된 형식');
   input.value = '';
   input.focus();
+};
+
+const createCars = carNames => {
+  let cars = [];
+  for (let name of carNames) {
+    cars.push(new Car(name));
+  }
+  return cars;
+};
+
+class Car {
+  constructor(name) {
+    this.name = name;
+    this.score = '';
+  }
+}
+
+const generateCars = () => {
+  const racingCountContainer = document.getElementById(RACING_COUNT_CONTAINER);
+  const racingCountInput = document.getElementById(RACING_COUNT_INPUT);
+  const racingCountSubmit = document.getElementById(RACING_COUNT_BUTTON);
+
+  showNode(racingCountContainer);
+  racingCountSubmit.addEventListener('click', handleRacingCount);
+  racingCountInput.focus();
 };
 
 new RacingCarGame();

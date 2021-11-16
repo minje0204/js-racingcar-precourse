@@ -84,6 +84,22 @@ const handleRacingCount = (cars, input) => {
   if (input.value <= 0) {
     return requestInputAgain(input);
   }
+
+  const result = racingTurn(input.value, cars);
+  showResult(result);
+};
+
+const racingTurn = (count, cars) => {
+  return count;
+};
+
+const showResult = result => {
+  const resultContainer = document.getElementById(RESULT_CONTAINER);
+  const resultContent = document.getElementById(RESULT_CONTENT);
+
+  showNode(resultContainer);
+
+  resultContent.appendChild(result);
 };
 
 new RacingCarGame();

@@ -85,17 +85,25 @@ const handleRacingCount = (cars, input) => {
     return requestInputAgain(input);
   }
 
+  const resultContainer = document.getElementById(RESULT_CONTAINER);
+  showNode(resultContainer);
   const result = repeatTurns(input.value, cars);
   showResult(result);
 };
 
-const showResult = result => {
-  const resultContainer = document.getElementById(RESULT_CONTAINER);
-  const resultContent = document.getElementById(RESULT_CONTENT);
+const showResult = cars => {
+  let max;
+  let winners = '';
 
-  showNode(resultContainer);
+  cars.sort((a, b) => b.path.length - a.path.length);
+  max = cars[0].path.length;
+  winners = cars.filter(v => v.path.length === max).map(car => car.name);
 
-  resultContent.appendChild(result);
+  appendAtEnd(
+    '#result-container',
+    'div',
+    `🥇최종 우승자: ${winners.join(', ')}`,
+  );
 };
 
 const repeatTurns = (racingCount, cars) => {
@@ -108,16 +116,15 @@ const repeatTurns = (racingCount, cars) => {
 
 const playOneTurn = cars => {
   cars.forEach(v => {
-    const randomNumber = Math.floor(Math.random() * 10);
-    if (randomNumber >= 4) {
-      v.path += '-';
-    }
+    v.move();
   });
 };
 
 const showCurrentResult = cars => {
-  cars.forEach(v => appendAtEnd('#app', 'div', `${v.name}: ${v.path}`));
-  appendAtEnd('#app', 'br', '');
+  cars.forEach(v =>
+    appendAtEnd('#result-container', 'div', `${v.name}: ${v.path}`),
+  );
+  appendAtEnd('#result-container', 'br', '');
 };
 
 const appendAtEnd = (parent, type, text) => {

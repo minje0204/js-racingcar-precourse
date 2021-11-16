@@ -74,8 +74,16 @@ const showCountContainer = cars => {
   const racingCountSubmit = document.getElementById(RACING_COUNT_BUTTON);
 
   showNode(racingCountContainer);
-  racingCountSubmit.addEventListener('click', handleRacingCount);
+  racingCountSubmit.addEventListener('click', () =>
+    handleRacingCount(cars, racingCountInput),
+  );
   racingCountInput.focus();
+};
+
+const handleRacingCount = (cars, input) => {
+  if (input.value <= 0) {
+    return requestInputAgain(input);
+  }
 };
 
 new RacingCarGame();

@@ -9,6 +9,7 @@ import {
   RESULT_CONTENT,
 } from './utils/constants.js';
 import { hideNode, showNode } from './utils/domUtil.js';
+import Car from './models/Car.js';
 
 export default function RacingCarGame() {
   const carNamesContainer = document.getElementById(CAR_NAMES_CONTAINER);
@@ -45,7 +46,8 @@ const handleCarNames = input => {
     }
   }
 
-  generateCars();
+  const cars = generateCars(carNames);
+  showCountContainer(cars);
 };
 
 const validateCarName = name => {
@@ -58,7 +60,7 @@ const requestInputAgain = input => {
   input.focus();
 };
 
-const createCars = carNames => {
+const generateCars = carNames => {
   let cars = [];
   for (let name of carNames) {
     cars.push(new Car(name));
@@ -66,14 +68,7 @@ const createCars = carNames => {
   return cars;
 };
 
-class Car {
-  constructor(name) {
-    this.name = name;
-    this.score = '';
-  }
-}
-
-const generateCars = () => {
+const showCountContainer = cars => {
   const racingCountContainer = document.getElementById(RACING_COUNT_CONTAINER);
   const racingCountInput = document.getElementById(RACING_COUNT_INPUT);
   const racingCountSubmit = document.getElementById(RACING_COUNT_BUTTON);

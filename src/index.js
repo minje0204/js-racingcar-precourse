@@ -8,7 +8,7 @@ import {
   RESULT_CONTAINER,
   RESULT_CONTENT,
 } from './utils/constants.js';
-import { hideNode, showNode } from './utils/domUtil.js';
+import { hideNode, showNode, appendAtEnd, requestInputAgain } from './util.js';
 import Car from './models/Car.js';
 
 export default function RacingCarGame() {
@@ -52,12 +52,6 @@ const handleCarNames = input => {
 
 const validateCarName = name => {
   return name.length > 5 ? false : true;
-};
-
-const requestInputAgain = input => {
-  alert('잘못된 형식');
-  input.value = '';
-  input.focus();
 };
 
 const generateCars = carNames => {
@@ -127,11 +121,4 @@ const showCurrentResult = cars => {
   appendAtEnd('#result-container', 'br', '');
 };
 
-const appendAtEnd = (parent, type, text) => {
-  const parentNode = document.querySelector(parent);
-  let newNode = document.createElement(type);
-
-  newNode.innerHTML = text;
-  parentNode.append(newNode);
-};
 new RacingCarGame();

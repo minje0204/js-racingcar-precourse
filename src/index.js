@@ -101,6 +101,7 @@ const showResult = result => {
 const repeatTurns = (racingCount, cars) => {
   for (let i = 0; i < racingCount; i++) {
     playOneTurn(cars);
+    showCurrentResult(cars);
   }
   return cars;
 };
@@ -112,5 +113,18 @@ const playOneTurn = cars => {
       v.path += '-';
     }
   });
+};
+
+const showCurrentResult = cars => {
+  cars.forEach(v => appendAtEnd('#app', 'div', `${v.name}: ${v.path}`));
+  appendAtEnd('#app', 'br', '');
+};
+
+const appendAtEnd = (parent, type, text) => {
+  const parentNode = document.querySelector(parent);
+  let newNode = document.createElement(type);
+
+  newNode.innerHTML = text;
+  parentNode.append(newNode);
 };
 new RacingCarGame();

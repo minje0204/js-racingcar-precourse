@@ -103,22 +103,15 @@ const showResult = cars => {
 const repeatTurns = (racingCount, cars) => {
   for (let i = 0; i < racingCount; i++) {
     playOneTurn(cars);
-    showCurrentResult(cars);
   }
   return cars;
 };
 
 const playOneTurn = cars => {
-  cars.forEach(v => {
-    v.move();
+  cars.forEach(car => {
+    car.move();
+    car.print();
   });
-};
-
-const showCurrentResult = cars => {
-  cars.forEach(v =>
-    appendAtEnd('#result-container', 'div', `${v.name}: ${v.path}`),
-  );
-  appendAtEnd('#result-container', 'br', '');
 };
 
 new RacingCarGame();
